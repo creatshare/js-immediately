@@ -63,6 +63,7 @@
         },
         data() {
             return {
+                timeout: '',
                 code: ``,
                 editorOptions: {
                     tabSize: 4,
@@ -90,8 +91,11 @@
         },
         methods: {
             codeChange(newCode) {
-                this.code = newCode
-                this.$emit('jsChange', this.code)
+                clearTimeout(this.timeout)
+                this.timeout = setTimeout(() => {
+                    this.code = newCode
+                    this.$emit('jsChange', this.code)
+                }, 1000)
             }
         }
     }
